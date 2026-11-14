@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "name": "Nederlands"
+  },
+  "screen": {
+    "volume": "Speakervolume",
+    "test": "Speaker testen"
+  },
+  "app": {
+    "name": "Guition-speaker",
+    "summary": "De eigen speakeruitgang van de Guition 4-inch als speaker van het scherm, voor plugins met geluid.",
+    "setting_volume": "Speakervolume",
+    "setting_volume_hint": "0 tot 100 %. 0 is stil.",
+    "setting_test": "Speaker testen",
+    "setting_test_hint": "Speelt een kort belletje."
+  }
+}

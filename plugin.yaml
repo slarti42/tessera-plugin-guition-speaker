@@ -1,0 +1,62 @@
+# What a screen gets when it takes this plugin: the board's NS4168 amplifier on its I2S pins as the screen's speaker.
+# Pins as the board's schematic and the Home Assistant community found them: BCLK GPIO1, LRCLK GPIO2, data GPIO40. They
+# are the relay connector's pins too (L3, L2, L1), so a screen has either this plugin or Guition relays, never both:
+# ESPHome refuses a pin used twice.
+i2s_audio:
+  - id: guition_speaker_bus
+    i2s_lrclk_pin: GPIO2
+    i2s_bclk_pin: GPIO1
+
+speaker:
+  # The amplifier. It has no volume register, so ESPHome turns the volume down in software (-49 dB at 0, 0 dB at 1).
+  # The bus runs in silence from the start and never stops (timeout: never), as Tessera's own boards keep theirs: an
+  # amplifier that loses its clock pops when it gets it back, before every sound. `mono` sends the sound on both
+  # channels, whichever one the NS4168 is wired to play.
+  - platform: i2s_audio
+    id: guition_speaker_out
+    i2s_audio_id: guition_speaker_bus
+    i2s_dout_pin: GPIO40
+    dac_type: external
+    sample_rate: 48000
+    bits_per_sample: 16bit
+    channel: mono
+    # Half a second of room: a plugin's sound at the bus's own rate passes the resampler and lands here, handed over
+    # from the screen's loop, which can be away that long while it draws (Tessera's features/audio.yaml, the same rule).
+    buffer_duration: 500ms
+    timeout: never
+  # The speaker plugins play on (the feature `speaker`): a sound at any rate reaches the bus at 48 kHz.
+  - platform: resampler
+    id: ts_speaker
+    output_speaker: guition_speaker_out
+    task_stack_in_psram: true
+    buffer_duration: 500ms
+
+# The volume, kept on the screen: in Home Assistant, in Tessera's editor and on the screen's settings page.
+number:
+  - platform: template
+    id: guition_speaker_volume
+    name: "Speaker volume"
+    icon: mdi:volume-high
+    optimistic: true
+    min_value: 0
+    max_value: 100
+    step: 5
+    initial_value: 50
+    restore_value: true
+    unit_of_measurement: "%"
+    entity_category: config
+
+# A chime to hear whether the speaker works, and how loud it is.
+button:
+  - platform: template
+    name: "Test speaker"
+    icon: mdi:bell-ring-outline
+    entity_category: config
+    on_press:
+      - lambda: id(guition_speaker_plugin).test();
+
+guition_speaker:
+  id: guition_speaker_plugin
+  output: guition_speaker_out
+  speaker: ts_speaker
+  volume: guition_speaker_volume

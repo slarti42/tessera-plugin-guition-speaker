@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "name": "English"
+  },
+  "screen": {
+    "volume": "Speaker volume",
+    "test": "Test the speaker"
+  },
+  "app": {
+    "name": "Guition speaker",
+    "summary": "The Guition 4-inch's own speaker output as the screen's speaker, for plugins that play sounds.",
+    "setting_volume": "Speaker volume",
+    "setting_volume_hint": "0 to 100 %. 0 is silent.",
+    "setting_test": "Test the speaker",
+    "setting_test_hint": "Plays a short chime."
+  }
+}
