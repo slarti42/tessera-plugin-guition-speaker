@@ -4,8 +4,8 @@
 # ESPHome refuses a pin used twice.
 i2s_audio:
   - id: guition_speaker_bus
-    i2s_lrclk_pin: GPIO2
-    i2s_bclk_pin: GPIO1
+    i2s_lrclk_pin: 2
+    i2s_bclk_pin: 42
 
 speaker:
   # The amplifier. It has no volume register, so ESPHome turns the volume down in software (-49 dB at 0, 0 dB at 1).
@@ -15,7 +15,7 @@ speaker:
   - platform: i2s_audio
     id: guition_speaker_out
     i2s_audio_id: guition_speaker_bus
-    i2s_dout_pin: GPIO40
+    i2s_dout_pin: 41
     dac_type: external
     sample_rate: 48000
     bits_per_sample: 16bit
