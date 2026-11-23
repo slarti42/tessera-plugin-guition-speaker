@@ -14,7 +14,7 @@ requires:
   esphome: 2026.9.0
   psram: true
 provides: [speaker]
-boards: [guition]
+boards: [jc3248w535]
 flash_kb: 40
 
 settings:
