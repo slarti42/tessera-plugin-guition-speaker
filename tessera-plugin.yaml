@@ -1,6 +1,5 @@
-# Guition speaker: the loudspeaker output of the Guition 4-inch (ESP32-S3-4848S040) as the screen's speaker, the
+# Guition speaker: the loudspeaker output of the Guition 3,5-inch (JC3248W535C) as the screen's speaker, the
 # feature `speaker` (ts_speaker) that other plugins play on (Alarm clock, Timers, Tap sound). The board's NS4168
-# amplifier takes I2S on GPIO1, GPIO2 and GPIO40: the pins of the relay connector, so not together with Guition relays.
 # Every name, label and hint below is a key into translations/<language>.json, part "app".
 id: guition_speaker
 version: 0.1.0
