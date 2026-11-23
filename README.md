@@ -1,27 +1,20 @@
 # Guition speaker
 
-> Needs a small change on the board first: out of the box the speaker output is not connected (below, "Before you
-> add it"). Not together with Guition relays: both use the same three pins.
 
-The Guition 4-inch screen (ESP32-S3-4848S040) has an amplifier for a small loudspeaker on its board, but Tessera does
+The Guition 3,5-inch screen (JC3248W535C) has an amplifier for a small loudspeaker on its board, but Tessera does
 not use it. This plugin makes it the screen's speaker, so plugins that play sounds work on this screen too: the
 **Alarm clock**, **Timers** and **Tap sound**.
 
 ## Before you add it
 
-- **The board.** The amplifier (an NS4168) shares its three pins with the relay connector (L1, L2, L3). On most boards
-  small 0-ohm resistors beside the amplifier send those pins to the relay connector, not to the amplifier. Check your
-  board: the speaker output needs those resistors moved or the pads bridged, as described in the Home Assistant
-  community thread on this screen. Without it the plugin builds and runs, and you hear nothing.
 - **A loudspeaker** on the board's speaker connector: a small one of 4 or 8 ohms.
-- **No relays.** A screen with this plugin cannot have Guition relays: both use GPIO1, GPIO2 and GPIO40, and the build
-  refuses a pin used twice.
+
 
 ## Set up
 
 1. In Tessera, open Plugins, choose **Add with a link** and paste
-   `https://github.com/woldhek/tessera-plugin-guition-speaker`.
-2. Tick the Guition 4-inch screen and apply. The screen builds once.
+   `https://github.com/slarti42/tessera-plugin-guition-speaker`.
+2. Tick the Guition 3.5-inch screen and apply. The screen builds once.
 3. Open the plugin's details on the screen's Plugins tab, **Settings**, and press **Run** beside **Test the speaker**:
    you hear a short chime. Set **Speaker volume** to taste.
 4. Add a plugin that plays sounds, such as **Alarm clock**: its sound part is now offered on this screen.
